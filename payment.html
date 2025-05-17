@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>صفحة الدفع - Meadia Stars</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            background-color: #f9f9f9;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            color: #0073e6;
+        }
+        .info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px #ccc;
+            margin-top: 20px;
+        }
+        .info p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        button {
+            display: block;
+            width: 100%;
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>صفحة الدفع</h1>
+
+    <div class="info">
+        <p>المنتج: <span id="productName"></span></p>
+        <p>السعر: <span id="productPrice"></span> ريال سعودي</p>
+        <p>سيتم تزويدك بطريقة الدفع قريباً.</p>
+    </div>
+
+    <button id="buyBtn">شراء</button>
+
+    <div class="message" id="successMsg">شكرًا لك على الشراء! سيتم التواصل معك قريباً.</div>
+
+    <script>
+        // قراءة بيانات المنتج من الرابط
+        function getQueryParams() {
+            const params = {};
+            window.location.search.substr(1).split("&").forEach(function(item) {
+                const [key, value] = item.split("=");
+                if (key) params[key] = decodeURIComponent(value);
+            });
+            return params;
+        }
+
+        const params = getQueryParams();
+        document.getElementById('productName').textContent = params.name || "غير معروف";
+        document.getElementById('productPrice').textContent = params.price || "0";
+
+        document.getElementById('buyBtn').addEventListener('click', function() {
+            // في الحقيقة، لإرسال الإيميل، نحتاج سيرفر، لكن هنا نعرض رسالة نجاح فقط.
+
+            // إرسال بيانات الشراء لسيرفر أو خدمة إرسال الإيميل يكون هنا (لكن غير مفعّل في هذا المثال)
+
+            alert(`تم تسجيل طلب شراء المنتج:\n${params.name} بسعر ${params.price} ريال سعودي\nوسوف يتم التواصل معك عبر البريد الإلكتروني.`);
+            document.getElementById('successMsg').style.display = 'block';
+            this.disabled = true;
+        });
+    </script>
+</body>
+</html>
